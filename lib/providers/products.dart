@@ -38,10 +38,8 @@ class Products with ChangeNotifier {
   ];
 
   List<Product> get items {
-    
     return [..._items];
   }
-
 
   Product loadedProduct(String prodId) {
     return items.firstWhere((pro) => pro.id == prodId);
@@ -51,8 +49,19 @@ class Products with ChangeNotifier {
     return _items.where((element) => element.isFavorite).toList();
   }
 
-  void addProduct() {
-    
+  Product findById(String id) {
+    return _items.firstWhere((element) => element.id == id);
+  }
+
+  void addProduct(Product product) {
+    final newProduct = Product(
+        description: product.description,
+        id: DateTime.now().toString(),
+        imageUrl: product.imageUrl,
+        price: product.price,
+        title: product.title);
+
+    _items.add(newProduct);
     notifyListeners();
   }
 }
